@@ -1,0 +1,16 @@
+INSERT INTO "football_player" VALUES 
+('1001','Mesut Ozil','Midfield','German','2014-09-01','2021-09-01',33,51.5,'001'),
+('1002','Christian Pulisic','Forward','American','2019-05-03','2024-09-01',20,69.5,'002'),
+('1003','Andre Gomes','Midfield','Portugese','2016-11-02','2020-09-02',28,30.0,'003'),
+('1004','Jamie Vardy','Forward','English','2013-07-06','2022-06-06',29,70.5,'004'),
+('1005','Virgil Van Dijk','Defender','Dutch','2015-08-01','2022-08-01',27,125.0,'005'),
+('1006','Sergio Aguero','Forward','Argentinian','2014-09-01','2021-09-01',32,101.5,'006'),
+('1007','Harry Maguire','Defender','English','2017-05-03','2023-05-03',26,90.5,'007'),
+('1008','Tanguy Ndombele','Midfield','French','2019-09-01','2021-09-01',23,66.7,'008'),
+('1009','Lukasz Fabianski','Goalkeeper','Polish','2015-09-01','2022-09-01',30,49.5,'009'),
+('1010','Raul Jiminez','Forward','Portugese','2017-08-01','2024-08-01',24,88.0,'010'),
+('1011','Eden Hazard','Midfield','Belgian','2019-07-01','2021-07-01',28,151.5,'011'),
+('1012','Leo Messi','Forward','Argentinian','2006-02-10','2023-10-10',32,369.5,'012'),
+('1013','Jan Oblak','Goalkeeper','Serbian','2014-09-01','2021-09-01',27,151.5,'013'),
+('1014','Robert Lewandowski','Forward','Polish','2014-11-01','2022-11-01',34,240.0,'014'),
+('1015','Marco Reus','Midfield','German','2011-03-03','2021-03-03',28,100.0,'015');
