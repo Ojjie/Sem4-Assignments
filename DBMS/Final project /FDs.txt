@@ -1,0 +1,27 @@
+Football_player
+player_id -> name-surname, position, nationality, contract_start_date, contract_end_date, age, current market_value, team_id
+
+Player_stats 
+player_id -> goals,assists,yellow_cards,red_cards,minutes_played
+
+Team
+team_id -> team_name, address, trophies_won, league_id, stadium_id 
+team_name, league_id -> tean_id, address, trophies_won, stadium_id
+
+Match 
+match_id -> stadium, final_score, home_team, away_team, date, license_number, league_id
+home_team, away_team, date -> final_score,license_number, league_id
+
+Manager
+manager_id -> name-surname, nationality, contract_start_date, contract_end_date, age, team_id 
+team_id -> name-surname, nationality, contract_start_date, contract_end_date, age, manager_id
+
+Referee
+license_number -> name-surname, classification, matches_refereed, match_id, league_id
+ 
+Stadium 
+stadium_id -> stadium_name, city, surface_type, capacity
+
+League
+league_id -> league_name, country, sponsors, current_champions, top_scorer 
+
