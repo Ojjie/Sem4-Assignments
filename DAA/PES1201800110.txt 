@@ -1,0 +1,148 @@
+Introduction - 
+1. What is an intal ?
+
+intal stands for 'int'egers of 'a'rbitrary 'l'ength The current implementation of intal are non-negative integers of length up to 1000 decimal digits. 
+The integer is stored as a null terminated string of ASCII characters in big endian format (most significant digit is stored at index 0). 
+In the current implementation each intal can store up to 1000 digits, the maximum value of an intal has been defined as INTAL_MAX = 1008 by the required preprocessor directive.
+The last block stores the terminating character '\0' and some extra space has been provided for padding.
+
+
+2. Difference between intal and the integer types in C 
+
+intal has many differences from the integer types in C - 
+a) It can store much larger numbers without overflow
+b) Since it is stored in the form of a string, it is easy to perform common string operation like slicing,reversing etc. on this data type, which makes it much easier to manipulate for computation.
+c) It is also more accurate than types like 'float' or 'double' since it is inherently free from the floating point error that arises in these types.
+d) However this comes at the cost of memory, i.e the intal type takes 1 byte per digit as compared to the 4 bytes of an integer or 8 bytes of float and also since it cannot make use of regular arithmetic, special operations have to be defined on this type to allow computation. Some of these functions are mentioned in the appropriate section.
+(This can be solved by some methods listed as 'additional functionality' in the appropriate section ) 
+
+3. Applications of intal - 
+a) Computation of arithmetic of large numbers (unsigned type can support large values but this can support much larger values - up to 2^3000) without overflow.
+
+Approach - 
+Functionalities and working of the functions implemented in the intal library (16 functions in the intal.h header file) -
+
+1)Add - 
+intal_add : 
+This function finds the sum of the two intals. The lengths of the two intals are computed and the loop basically adds each digit separately (from units place and so on) and the appropriate sum and carry are calculated.
+The resulting sum is stripped of any zeroes (if any).
+
+2)Compare - 
+intal_compare : 
+This function compares the two given intals. First the length of the two intals are computed. If the first intal is greater, 1 is returned.
+Else if the second intal is greater -1 is returned. If the two intals are of the same length, then they are compared digitwise starting from the units place of the digit intal, and the appropriate number is returned according to the previously mentioned method.
+If both are equal, 0 is returned.
+
+3)Difference - 
+intal_difference : This function finds the difference between two intals. It first assigns the larger intal to the greater pointer, and the smaller intal
+to the lesser pointer. It then works very similarly to the add function. Instead of computing the carry and sum, it computes the borrow
+and difference for each digit. It then returns the result stripped of any leading zeros.
+
+4)Multiply - 
+intal_multiply : 
+This function finds the product of two intals. It works based on the school logic of multiplying two numbers. That is one digit of
+the smaller number is taken at a time and multiplied with the entire larger number, then based on the position of the digit zeros
+are added at the end of the result. All these results are summed together to give the final product.
+    
+
+5)Mod - 
+intal_mod :
+This function returns the modulus of two intals. It works based on long division. First the dividend is stored separately, then the first
+few digits of the dividend is taken based on the length of the divisor. Then repeated subtraction is done between these two parts until
+the remaining part is less than the divisor. This remainder is combined with the remaining part of the dividend and then the process is
+repeated. The remaining part of the dividend is the final answer that is the modulus.
+
+
+6)Power - 
+intal_pow :
+This function returns the nth power of intal1. First it checks if n is zero and returns the result as 1. If intal1 is zero then it returns zero as the 
+result. After this it performs the multiplication to obtain the result. If the number n is odd it multiplies the present multiple term
+with the result, it then checks if n is not 1 to prevent overflow and multiplies the multiple term with itself and right shifts n by 1.
+This allows the pow to go in log time as opposed to linear time. It also makes sure to free the assigned memory from the multiplicationat each step. It then returns the result.
+
+
+7)GCD - 
+intal_gcd :
+This function finds the gcd of two intals. First it checks if the second intal is zero and returns the value of the first intal. It then
+follows euclid's algorithm to find the gcd. First it finds the modulus of the two numbers and then it recursively calls itself with the
+result of the modulus and the first number as parameters. The function prevents memory leaks by freeing the memory allocated by each 
+recursion. 
+
+8)Fibonacci series - 
+intal_fibonacci :
+This function returns the nth number in the fibonacci series. First it computes the first two numbers of the series that is 0 and 1.
+It then finds the sum of the previous two numbers until the current term reaches n. The function frees the extra memory generated by
+the repeated additions, and then returns the final result.    
+
+9)Factorial - 
+intal_factorial : 
+This function returns n!. It creates two intals, one to store the result and one for the present count. The result is initially one,
+it is multiplied with the count at each step until the count reaches n. The function frees the extra memory from the repeated 
+additions and multiplications. It then returns the result.
+
+10)Binomial coefficient - 
+intal_bincoeff: 
+This function computes nCk using Pascals identity and returns it. First it checks if k > n and if it is 0 is returned as the result. It
+then checks if k is greater than n/2 and reduces it if it is as nCk = nCn-k . The function then finds the value by computing the Pascals
+triangle row by row. At any time only one row is needed in the memory. One cell of the row is equal to the sum of the two elements in
+the row directly above it. It does this for n x k elements. It then frees the extra memory and returns the result which is stored in 
+row[k].
+
+
+11) Max - 
+intal_max : 
+This function finds the maximum element in an array of intals. It assumes that the first element is the maximum element in the array and then traverses the array and compares its value with all the other elements of the array using the intal_compare function.
+It goes on updating the value of the maximum element and finally returns the offset of the maximum element.
+
+
+12)Min - 
+intal_min : 
+This function finds the minimum element in an array of intals. It assumes that the first element is the minimum element in the array and then traverses the array and compares its value with all the other elements of the array using the intal_compare function.
+It goes on updating the value of the minimum element and finally returns the offset of the minimum element.
+
+
+13)Linear search - 
+intal_search: 
+This function performs a simple linear search on an array of intals. It iterates through the array and returns the index of the first occurence of the key found.
+If the key is not found after traversal, -1 is returned.
+
+14)Binary search -
+intal_binsearch: 
+This function performs a binary search on a sorted array of intals. It compares the element to that of the mid first and returns the index of the mid if it is the same. If not, it divides the array into two halves and recursively checks if the element belongs to either of the two halves.
+It does so via the static binary search function in the code file. The intal_binsearch is basically a dummy function that calls this function.
+
+15)Sort - 
+intal_sort: 
+This function is used to sort an array of intals. It is basically a dummy function that calls the static merge sort function.
+First, the array is divided into halves, and the mergesort function recursively calls itself for each of the halves of the array. The mergesortedhalves function is further used to merge the sorted halves of the two arrays and return the final sorted array.
+Merge sort was chosen since it as O(nlogn) sorting algorithm and is more cache friendly than heap sort.
+
+
+16)Coin Row Problem - 
+coin_row_problem :
+This function solves the coin row problem for an array of intals using dynamic programming. There is a row of n coins whose values are
+some positive integers C[0..n-1]. The goal is to pick up the maximum amount of money subject to the constraint that no two coins adjacent in the initial
+row can be picked up.Th solution is found in a bottom up manner, initially the solution for 0 coins and 1 coins is set, then for subsequent numbers the
+answer is found based on which choice gives a higher value. Finally the result is returned. It uses only a window of the dp table rather than the whole
+table.
+
+
+
+Future Work - 
+1. Additional functionality that intal could implement - 
+There are many other functions that the intal library could include - 
+a) An intal_div function (the working would be similar to the modulus function)
+b) Adding support for negative numbers
+c) Functions for deep copy and shallow copy of intals
+d) Implementation of more efficient algorithms using the techniques learnt from the course (like backtracking,DP)etc.
+(more specifically Karatsuba algorithm for multiplication).
+
+
+2.  If you had no restrictions, how would you implement the library of arbitrarily long integers ?
+a) With no restrictions, using an object oriented programming language like C++ or Python would make our task far easier to achieve as the operators involved could be represented more accurately using operator overloading.
+b) Handling memory at each step using constructors and destructors would also make our job easier since we would not need many temporary variables.
+c) Storing our data is a dynamic data structure (like a vector in C++) would also be better since it would remove the limitation of 1000 digits on the maximum size of the intal.
+
+
+
+
